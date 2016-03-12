@@ -4,12 +4,15 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+I'm a Ruby on Rails Developer, always looking to improve my knowledge about programming.
+Currently available.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+## Skills
+- Use of version control software as Git (merge, branch, rebase).
+- Use of test frameworks like RSpec for Ruby on Rails and Mocha for AngularJS.
+- Use of static code analyzers like Rubocop.
+- High test coverage.
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+{% include icon-github.html username="werner" %}
+{% include icon-twitter.html username="wechezuria" %}
+
