@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: "Test a modal dialog in AngularJS with Mocha, Chai, Sinon and BardJS"
 date: 2016-03-13 11:47:00 -0430
 categories: angularjs modal test
