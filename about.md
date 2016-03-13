@@ -14,5 +14,4 @@ Currently available.
 - Use of static code analyzers like Rubocop.
 - High test coverage.
 
-{% include icon-github.html username="werner" %}
-{% include icon-twitter.html username="wechezuria" %}
+{% include social-icons.html %}
