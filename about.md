@@ -5,6 +5,7 @@ permalink: /about/
 ---
 
 I'm a Ruby on Rails Developer, always looking to improve my knowledge about programming.
+
 Currently available.
 
 ## Skills
@@ -15,4 +16,3 @@ Currently available.
 
 {% include icon-github.html username="werner" %}
 {% include icon-twitter.html username="wechezuria" %}
-
