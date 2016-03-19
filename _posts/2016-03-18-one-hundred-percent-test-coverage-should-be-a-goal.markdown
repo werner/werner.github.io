@@ -89,7 +89,7 @@ let calculate_a_list xs =
   calculate xs;;
 {% endhighlight %}
 
-I'm calculating a list to sum it if its average is bigger than 20, and subtract it if its average is less than 10. Then we write
+I'm calculating a list to sum it if its average is bigger than 10, and subtract it if its average is less than 10. Then we write
 the test:
 
 {% highlight ocaml %}
