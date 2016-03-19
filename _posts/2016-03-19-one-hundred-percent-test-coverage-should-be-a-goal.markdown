@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: "A 100% test coverage should be a goal for every project"
-date: 2016-03-18 11:47:00 -0430
+date: 2016-03-19 13:47:00 -0430
 categories: test coverage
 ---
 Maybe I'm talking about my limited experience on small and medium size projects
