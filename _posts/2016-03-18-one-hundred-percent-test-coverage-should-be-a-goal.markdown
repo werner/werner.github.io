@@ -25,7 +25,9 @@ I can't agree more on that. I'm not sure if this has been stated before (as a me
 
 So, if I don't feel satisfied with the coverage percentage, I write more tests accordingly.
 
-However using only test coverage is not enough, there are some flaws that I will show, I'll be using Ocaml as an example. 
+However using only test coverage is not enough, there are some flaws that I will show,
+I'll be using Ocaml as an example (disclaimer: I'm not really an Ocaml developer, 
+I just think the language is cool). 
 First, lets say we want to write a function that sums two numbers, we can write it this way:
 
 `mymodule.ml`
@@ -52,20 +54,89 @@ let () =
 {% endhighlight %}
 
 We need a coverage tool and looks like bisect is the most popular one, so we'll be using that, for this example
-we'll be using [bisect_ppx](https://github.com/rleonid/bisect_ppx). So, we just need to type in the command line the next:
+we'll be using a fork named [bisect_ppx](https://github.com/rleonid/bisect_ppx). 
+So, we just need to type in the command line the next:
 
 {% highlight bash %}
 ocamlfind c -package bisect_ppx -c mymodule.ml
-ocamlfind c -c test.ml
+ocamlfind c -package oUnit -c test.ml
 ocamlfind c -linkpkg -package bisect_ppx -package oUnit mymodule.cmo test.cmo
 ./a.out
 bisect-ppx-report -I build/ -html coverage/ bisect*.out
 {% endhighlight %}
 
 Now, you can open coverage/index.html, and see a shiny coverage report for our code.
+
 ![Coverage Report]({{ site.url }}/assets/coverage.png)
 
 So, we decided our module is ready to use and test it in a repl, we open utop and type:
 
+![Utop]({{ site.url }}/assets/utop.png)
+
+As we can see our function does not accept float numbers, only integers. If we want to fix that, we can add another function
+just for floats or rename the function we're using like sum_two_integers.
+
+What if we want to make a fancy calculation of a list of numbers:
+
 {% highlight ocaml %}
+let calculate_a_list xs = 
+  let average = List.fold_left (+) 0 xs / List.length xs in 
+  let rec calculate ys = match ys with
+    [] -> 0
+  | hd :: tl when average >= 10 -> hd + calculate tl
+  | hd :: tl when average <= 10 -> hd - calculate tl
+  | hd :: tl -> calculate tl in
+  calculate xs;;
 {% endhighlight %}
+
+I'm calculating a list to sum it if its average is bigger than 20, and subtract it if its average is less than 10. Then we write
+the test:
+
+{% highlight ocaml %}
+open OUnit2;;
+
+let test1 calculate_a_list_test = assert_equal 184 (Mymodule.calculate_a_list [54; 32; 98]);;
+
+let test2 calculate_a_list_test = assert_equal 3 (Mymodule.calculate_a_list [1; 2; 3; 4; 5]);;
+
+let suite =
+"suite">:::
+  ["test1">:: test1;
+   "test2">:: test2]
+;;
+
+let () =
+  run_test_tt_main suite
+;;
+{% endhighlight %}
+
+We run the previous commands and get the next coverage report.
+
+![Coverage Report 2]({{ site.url }}/assets/coverage2.png)
+
+![Coverage Report 3]({{ site.url }}/assets/coverage3.png)
+
+Now, we think to ourselves that we really don't need to cover that last match, in the end if the average is less than 10
+we are covered and if it's bigger we are covered as well, we just include it to stop the exhaustive warning 
+in the pattern matching the compiler is giving us. So, we decided to ignore it like this:
+
+{% highlight ocaml %}
+let calculate_a_list xs = 
+  let average = List.fold_left (+) 0 xs / List.length xs in 
+  let rec calculate ys = match ys with
+    [] -> 0
+  | hd :: tl when average >= 10 -> hd + calculate tl
+  | hd :: tl when average <= 10 -> hd - calculate tl
+  | hd :: tl -> calculate tl in (*BISECT-IGNORE*)
+  calculate xs;;
+{% endhighlight %}
+
+We finally have our 100% test coverage.
+
+## **Conclusion**
+
+I think you should achieve a 100% test coverage for your project, it's up to you to decide how you configure your coverage tool
+so you can meet that goal. It's not a silver bullet, but at least you know your app will work in the best case scenario 
+when you're showing it to a client or to your boss.
+
+This is just my opinion, if you disagree I'd like to know.
