@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: "Solution to Javascript Development Problem"
+title: "Solution to the Javascript Development Problem"
 date: 2016-04-18 11:17:00 -0430
 categories: javascript npm development
 ---
