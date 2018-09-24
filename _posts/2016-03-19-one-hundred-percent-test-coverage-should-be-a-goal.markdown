@@ -5,6 +5,13 @@ title: "A 100% test coverage should be a goal for every project"
 date: 2016-03-19 13:47:00 -0430
 categories: test coverage
 ---
+
+## **Update**
+
+I made this assertion to test the validity of this idea, now I no longer believe a 100% test coverage
+is a good idea, mainly because this measure can be deceiving,
+instead you should make sure to test all corner cases.
+
 Maybe I'm making a bold conclusion, however I think a 100% test coverage
 should be a goal for every project, specially when working with dynamic languages.
 Now, I don't mean the whole project should be covered, but the code you manually
