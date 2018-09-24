@@ -8,9 +8,9 @@ categories: test coverage
 
 ## **Update**
 
-I made this assertion to test the validity of this idea, now I no longer believe a 100% test coverage
+**I made this assertion to test the validity of this idea, now I no longer believe a 100% test coverage
 is a good idea, mainly because this measure can be deceiving,
-instead you should make sure to test all corner cases.
+instead you should make sure to test all corner cases.**
 
 Maybe I'm making a bold conclusion, however I think a 100% test coverage
 should be a goal for every project, specially when working with dynamic languages.
