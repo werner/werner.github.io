@@ -83,9 +83,10 @@ error[E0382]: use of moved value: `book1.title`
 
 So, what happened?, the pointer address book1 was copied into book2, making book1 invalid,
 transfering the ownership to book2. Other languages like Ruby does a similar thing, however book1 and book2
-remains valid (without the owning part), but if you think about it,
-it doesn't make any sense, because most of the time you want to copy the value, 
-not being referenced by two variables, at least Rust has a sane way to deal with this.
+remains valid (without the owning part), but if you think about it, it is confusing, if you modify book2, book1
+is modified as well, but that's not the intention (at least most of the time),
+because you want to copy the value, not being referenced by two variables,
+at least Rust has a sane way to deal with this.
 
 Now returning to the Rust's example, what can we do in this case?, depending on the situation,
 we can borrow the value, taking a [reference](https://en.wikipedia.org/wiki/Reference_(computer_science)) of book1,
