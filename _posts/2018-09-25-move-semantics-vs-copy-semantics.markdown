@@ -190,8 +190,8 @@ let's take a look at [push](https://doc.rust-lang.org/std/vec/struct.Vec.html#me
 
 ![Push Method]({{ site.url }}/assets/push_method.png)
 
-The value parameter needs to consume T, in this case book_1,
-it doesn't take a reference. What other option do we have?,
+The value parameter needs to consume T, in this case book_1.
+What option do we have?,
 we can use [into_iter](https://doc.rust-lang.org/std/iter/trait.IntoIterator.html#tymethod.into_iter),
 let's take a look at it:
 
