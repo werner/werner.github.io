@@ -10,7 +10,10 @@ This is a post I wanted to write because I feel the moment I clearly understand 
 use Rust in a basic level. Obviously Rust has a steep learning curve, specially for people like me, who comes from Ruby,
 so I thought this could help Rust beginners like myself to learn how to use the language.
 
-In a few situations you want copy semantics, which means the whole value is copy from one point of memory to another.
+## **Copy**
+
+In a few situations you want copy semantics, which means the value saved in a
+variable will be copied from one point of memory to another.
 For example in C you can do this:
 
 {% highlight c %}
@@ -24,32 +27,26 @@ int main() {
         int   book_id;
     } book1;
 
-    struct Books *struct_pointer;
-
     strcpy( book1.title, "C Programming");
 
-    struct Books book2;
-
-    book2 = book1;
+    struct Books book2 = book1;
 
     strcpy( book2.title, "Copy Semantics");
 
-    printf( "%s\n", book1.title );
-
-    printf( "%p\n", &book1 );
-    printf( "%p\n", &book2 );
+    printf( "book 1 title is %s\n", book1.title );
+    printf( "book 2 title is %s\n", book2.title );
 }
 {% endhighlight %}
 
 {% highlight bash %}
 $ gcc test.c -o test
-$ ./test   
-C Programming
-0x7ffca2811e30
-0x7ffca2811f00
+$ ./test
+book 1 title is C Programming
+book 2 title is Copy Semantics
 {% endhighlight %}
 
-As you can see, the variables point to different memory addresses, now if you want to do the same thing in Rust:
+As you can see, the equal operator in c/c++ performs a copy of the struct from book1 to book2, so, you can freely
+modify book2 without altering the values in book1, now if you want to do the same thing in Rust:
 
 {% highlight rust %}
 struct Books {
@@ -66,7 +63,7 @@ fn main() {
         subject: "Programming".to_string(),
         book_id: 12
     };
-    
+    age
     let book2 = book1;
     
     println!("{}", book1.title);
@@ -85,8 +82,14 @@ error[E0382]: use of moved value: `book1.title`
    |
 {% endhighlight %}
 
-So, what happened?, the pointer address book1 was copied into book2, making book1 invalid, which means that now book2 owns the data.
- What can we do in this case?, depending on the situation, we can borrow the value like this: `let book2 = &book1;` or we can implement the Clone trait like this:
+So, what happened?, the pointer address book1 was copied into book2, making book1 invalid,
+transfering the ownership to book2. Other languages like Ruby does a similar thing, however book1 and book2
+remains valid (without the owning part), but if you think about it,
+it doesn't make any sense, because most of the time you want to copy the value, 
+not being referenced by two variables, at least Rust has a sane way to deal with this.
+
+Now returning to the Rust's example, what can we do in this case?, depending on the situation,
+we can borrow the value like this: `let book2 = &book1;` or we can implement the Clone trait like this:
 
 {% highlight rust %}
 #[derive(Clone)]
@@ -111,9 +114,9 @@ fn main() {
 }
 {% endhighlight %}
 
-## **iter method**
+## **Move**
 
-In another situation, you want move semantics, like this one:
+In another case, you want move semantics, like this one:
 
 {% highlight rust %}
 #[derive(Debug)]
