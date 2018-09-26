@@ -45,7 +45,7 @@ book 1 title is C Programming
 book 2 title is Copy Semantics
 {% endhighlight %}
 
-As you can see, the equal operator in C/C++ performs a copy of the struct from book1 to book2, so, you can freely
+As you can see, the assignment operator in C/C++ performs a copy of the struct from book1 to book2, so, you can freely
 modify book2 without altering the values in book1, now if you want to do the same thing in Rust:
 
 {% highlight rust %}
